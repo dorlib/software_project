@@ -1,2 +1,2 @@
-# software_project
-software project course in TAU
+ software_project
+My project in software project course in TAU.
