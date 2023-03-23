@@ -6,7 +6,10 @@ int quotient = 0;
 int num = 0;
 int source = 0;
 int target = 0;
-int decimal = 0;
+int result = 0;
+
+int i = 0;
+int sum = 0;
 
 int charToDigit(char c){
     if(c >= '0' && c <= '9') {
@@ -19,29 +22,15 @@ int charToDigit(char c){
 }
 
 
-int convertToDecimal(int num, int base){
-    int decimal = 0, i = 0;
-    while(num != 0){
-        decimal += (num % 10) * pow(base, i);
-        num /= 10;
+int reverse(){
+    char c;
+    if((c = getchar()) != '\n'){
+        reverse();
+        sum += (c -'0') * pow(2,i);
         i++;
     }
-    return decimal;
-}
 
-void convertToBase(int decimal, int base){
-    if(decimal == 0){
-        printf("0");
-        return;
-    }
-
-    convertToBase(decimal / base, base);
-    quotient = decimal % base;
-    if(quotient < 10) {
-        printf("%d", quotient);
-    } else {
-        printf("%c", quotient - 10 + 'A');
-    }
+    return;
 }
 
 int main(){
@@ -62,11 +51,8 @@ int main(){
     printf("Enter the number: ");
     scanf("%d", &num);
 
-    decimal = convertToDecimal(num, source);
-    printf("The number in base %d is: ", target);
-
-    convertToBase(decimal, target);
-    printf("\n");
+    result = reverse();
+    printf("The number in base %d is: %d", target, num);
 
     return 0;
 }
