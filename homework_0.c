@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-int quotient = 0;
 int num = 0;
 int source = 0;
 int target = 0;
@@ -11,7 +10,7 @@ int result = 0;
 int i = 0;
 int sum = 0;
 
-int charToDigit(char c){
+int charDigitConverter(char c){
     if(c >= '0' && c <= '9') {
         return c - '0';
     } else if(c >= 'a' && c <= 'z') {
@@ -24,13 +23,14 @@ int charToDigit(char c){
 
 int reverse(){
     char c;
+
     if((c = getchar()) != '\n'){
         reverse();
-        sum += (c -'0') * pow(2,i);
+        sum += charDigitConverter(c) * pow(target,i);
         i++;
     }
 
-    return;
+    return 0;
 }
 
 int main(){
@@ -52,7 +52,7 @@ int main(){
     scanf("%d", &num);
 
     result = reverse();
-    printf("The number in base %d is: %d", target, num);
+    printf("The number in base %d is: %d", target, sum);
 
     return 0;
 }
