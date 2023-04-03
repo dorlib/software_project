@@ -5,7 +5,7 @@
 int num = 0;
 int source = 0;
 int target = 0;
-int result = 0;
+int midResult = 0;
 
 int i = 0;
 int sum = 0;
@@ -21,12 +21,12 @@ int charDigitConverter(char c){
 }
 
 
-int reverse(){
+int reverse(int base){
     char c;
 
     if((c = getchar()) != '\n'){
-        reverse();
-        sum += charDigitConverter(c) * pow(target,i);
+        reverse(base);
+        sum += charDigitConverter(c) * pow(base,i);
         i++;
     }
 
@@ -51,7 +51,12 @@ int main(){
     printf("Enter the number: ");
     scanf("%d", &num);
 
-    result = reverse();
+    reverse(10);
+
+    i = 0;
+
+    reverse(target);
+
     printf("The number in base %d is: %d", target, sum);
 
     return 0;
