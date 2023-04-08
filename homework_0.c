@@ -1,63 +1,72 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
-
-int num = 0;
-int source = 0;
-int target = 0;
-int midResult = 0;
 
 int i = 0;
 int sum = 0;
 
-int charDigitConverter(char c){
-    if(c >= '0' && c <= '9') {
-        return c - '0';
-    } else if(c >= 'a' && c <= 'z') {
-        return c - 'a' + 10;
-    } else {
-        return -1;
-    }
-}
+int rem = 0;
+int num = 0;
+int targetBase = 0;
+char c;
 
-
-int reverse(int base){
+void reverse(int base) {
     char c;
-
-    if((c = getchar()) != '\n'){
+    if((c = getchar()) != '\n') {
         reverse(base);
-        sum += charDigitConverter(c) * pow(base,i);
+        if (c >= '0' && c <= '9') {
+            num = c - '0';
+        } else if (c >= 'a' && c <= 'f') {
+            num = c - 'a' + 10;
+        } else {
+            printf("Invalid character: %c\n", c);
+            return;
+        }
+        sum += num * pow(base, i);
         i++;
     }
-
-    return 0;
+    return;
 }
 
-int main(){
-    printf("enter the source base: \n");
-    scanf("%d", &source);
-    if(source < 2 || source > 16) {
-        fprintf(stderr, "Invalid source base!\n");
-        exit(EXIT_FAILURE);
-   }
+void convertToBase(int num, int base) {
+    if (num == 0) {
+        return;
+    } else {
+        convertToBase(num / base, base);
+        rem = num % base;
+        if (rem < 10) {
+            c = rem + '0';
+        } else {
+            c = rem - 10 + 'a';
+        }
+        putchar(c);
+    }
+}
 
-    printf("enter the target base: \n");
-    scanf("%d", &target);
-    if(target < 2 || target > 16) {
-        fprintf(stderr, "Invalid target base!\n");
-        exit(EXIT_FAILURE);
-   }
+int main(void) {
+    int base;
+    printf("Enter the source base (between 2 to 16): ");
+    scanf("%d", &base);
 
-    printf("Enter the number: ");
-    scanf("%d", &num);
+    if (base < 2 || base > 16) {
+        printf("Invalid base. Please enter a value between 2 to 16.\n");
+        return 1;
+    }
 
-    reverse(10);
+    printf("Enter the target base (between 2 to 16): ");
+    scanf("%d", &targetBase);
 
-    i = 0;
+    if (targetBase < 2 || targetBase > 16) {
+        printf("Invalid target base. Please enter a value between 2 to 16.\n");
+        return 1;
+    }
 
-    reverse(target);
+    printf("Enter a number in base %d: ", base);
+    getchar(); 
+    reverse(base);
 
-    printf("The number in base %d is: %d", target, sum);
+    printf("The number in base %d is: ", targetBase);
+    convertToBase(sum, targetBase);
+    printf("\n");
 
     return 0;
 }
